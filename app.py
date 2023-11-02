@@ -1,8 +1,11 @@
-import dotenv
-dotenv.load_dotenv()
-
 from langchain.prompts import PromptTemplate
 from langchain.llms import HuggingFaceHub
+from langchain.callbacks import StreamlitCallbackHandler
+import streamlit as st
+from langchain.chains import LLMChain
+import os
+
+os.environ["HUGGINGFACEHUB_API_TOKEN"] = st.secrets["api_key"]
 
 llm = HuggingFaceHub(repo_id="declare-lab/flan-alpaca-large", model_kwargs={"temperature":0, "max_length": 512})
 
@@ -13,12 +16,8 @@ prompt_template = PromptTemplate(
     input_variables=["topic"]
 )
 
-from langchain.chains import LLMChain
-
 chain = LLMChain(llm=llm, prompt=prompt_template)
 
-from langchain.callbacks import StreamlitCallbackHandler
-import streamlit as st
 st.title('Thesis Title Generator')
 st.text('Write your topic.')
 if prompt := st.chat_input():
