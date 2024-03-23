@@ -7,7 +7,7 @@ import os
 
 os.environ["HUGGINGFACEHUB_API_TOKEN"] = st.secrets["api_key"]
 
-llm = HuggingFaceHub(repo_id="google/gemma-2b-it", model_kwargs={"temperature":0, "max_length": 512})
+llm = HuggingFaceHub(repo_id="declare-lab/flan-alpaca-large", model_kwargs={"temperature":0, "max_length": 512})
 
 template = "what is a good thesis title for this topic: {topic}"
 
